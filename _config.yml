@@ -25,8 +25,8 @@ description: >- # this means to ignore newlines until "baseurl:"
   A community journal for curious minds exploring space, galaxies, planets,
   celestial discoveries and the stories that connect us to the cosmos.
 lang: en
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "https://universe.yash12007.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: _Yash12007_
 github_username:  Yash12007
 header_pages:
