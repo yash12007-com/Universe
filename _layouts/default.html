@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080d18">
+    <meta name="author" content="Yash12007 Universe">
+    <meta name="description" content="{{ page.description | default: site.description | strip_html | normalize_whitespace | escape }}">
+    <title>{% if page.title %}{{ page.title | escape }} — {% endif %}{{ site.title | escape }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Jura:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+    {% feed_meta %}
+  </head>
+  <body>
+    <header class="site-header"><a class="brand" href="{{ '/' | relative_url }}" aria-label="Yash12007 Universe home"><span class="brand-mark">✳</span><span class="brand-name">YASH12007 <b>UNIVERSE</b></span></a><nav class="site-nav" aria-label="Main navigation"><a href="{{ '/' | relative_url }}#latest">Journal</a><a href="{{ '/about/' | relative_url }}">About</a><a class="nav-join" href="{{ '/' | relative_url }}#newsletter">Get the dispatch <span>↗</span></a></nav><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span></button></header>
+    {% if page.layout == 'post' %}
+    <main class="article-shell">
+      <article class="article-page">
+        <a class="article-back" href="{{ '/' | relative_url }}#latest"><span aria-hidden="true">←</span> BACK TO THE JOURNAL</a>
+        <header class="article-header">
+          <p class="eyebrow"><span class="pulse-dot"></span>{{ page.categories | first | default: 'FIELD NOTE' | upcase }}</p>
+          <h1>{{ page.title | escape }}</h1>
+          <div class="article-meta"><span>{{ page.date | date: "%d %B %Y" | upcase }}</span><span class="meta-dot">·</span><span>{{ page.content | number_of_words | divided_by: 200 | plus: 1 }} MIN READ</span></div>
+          {% if page.subtitle %}<p class="article-deck">{{ page.subtitle | escape }}</p>{% endif %}
+        </header>
+        {% if page.image %}<figure class="article-cover"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title | escape }}">{% if page.image_caption %}<figcaption>{{ page.image_caption | escape }}</figcaption>{% endif %}</figure>{% endif %}
+        <div class="article-content">
+          {{ content }}
+          <footer class="article-end"><span class="article-end-mark">✳</span><p>Thanks for looking up with us.</p><a href="{{ '/' | relative_url }}#latest">MORE FROM THE JOURNAL <span aria-hidden="true">→</span></a></footer>
+        </div>
+      </article>
+    </main>
+    {% else %}
+    {{ content }}
+    {% endif %}
+    <footer class="site-footer"><a class="brand footer-brand" href="{{ '/' | relative_url }}"><span class="brand-mark">✳</span><span class="brand-name">YASH12007 <b>UNIVERSE</b></span></a><span class="footer-tagline">MADE OF STARDUST. BUILT ON CURIOSITY.</span><div class="footer-right"><span>© {{ site.time | date: "%Y" }} Yash12007 Universe</span><a href="{{ '/feed.xml' | relative_url }}">RSS ↗</a></div></footer>
+    <script>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const siteNav = document.querySelector('.site-nav');
+      menuToggle?.addEventListener('click', () => {
+        const open = menuToggle.getAttribute('aria-expanded') === 'true';
+        menuToggle.setAttribute('aria-expanded', String(!open));
+        siteNav.classList.toggle('nav-open', !open);
+      });
+    </script>
+  </body>
+</html>

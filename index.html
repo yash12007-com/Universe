@@ -1,0 +1,49 @@
+---
+layout: default
+---
+<main class="universe-home">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="pulse-dot"></span> A COMMUNITY JOURNAL FOR THE COSMOS</p>
+      <h1 id="hero-title">The universe<br>is <em>ours to explore.</em></h1>
+      <p class="hero-intro">A place for curious minds to share the wonders above us — from distant galaxies and strange worlds to the night sky just beyond your window.</p>
+      <div class="hero-actions"><a class="button button-primary" href="#latest">Explore the journal <span aria-hidden="true">↘</span></a><a class="text-link" href="{{ '/about/' | relative_url }}">Our story <span aria-hidden="true">→</span></a></div>
+      <div class="hero-note"><span class="note-rule"></span><span>LOOK UP. STAY CURIOUS.</span></div>
+    </div>
+    <div class="hero-art" role="img" aria-label="An illustrated blue planet floating in a star-filled universe">
+      <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="planet"><div class="planet-shadow"></div><div class="planet-ridge ridge-one"></div><div class="planet-ridge ridge-two"></div></div>
+      <span class="star star-a">✳</span><span class="star star-b">✦</span><span class="star star-c">✧</span><span class="star star-d">·</span>
+      <div class="art-caption"><span class="caption-line"></span><span>FIG. 01 &nbsp; / &nbsp; OUR PALE BLUE DOT</span></div>
+      <span class="art-coord">41° 24′ 12.2″ N<br>02° 10′ 26.5″ E</span>
+    </div>
+    <div class="hero-index">01 <span>—</span> 04</div>
+  </section>
+
+  <section class="ticker" aria-label="Topics"><div class="ticker-track"><span>GALAXIES</span><i>✳</i><span>WORLDS</span><i>✳</i><span>DEEP SKY</span><i>✳</i><span>ASTROPHOTOGRAPHY</span><i>✳</i><span>BIG QUESTIONS</span><i>✳</i><span>GALAXIES</span><i>✳</i><span>WORLDS</span><i>✳</i><span>DEEP SKY</span><i>✳</i><span>ASTROPHOTOGRAPHY</span><i>✳</i><span>BIG QUESTIONS</span><i>✳</i></div></section>
+
+  <section class="journal section-wrap" id="latest">
+    <div class="section-heading"><div><p class="eyebrow">FIELD NOTES &amp; FAR-OFF PLACES</p><h2>From the <em>journal.</em></h2></div><a class="text-link" href="{{ '/feed.xml' | relative_url }}">Follow the feed <span aria-hidden="true">↗</span></a></div>
+    {% assign featured_posts = site.posts | slice: 0, 3 %}
+    {% if featured_posts.size > 0 %}
+    <div class="post-grid">
+      {% for post in featured_posts %}
+      <article class="post-card post-card-{{ forloop.index }}">
+        <a class="post-visual visual-{{ forloop.index }}" href="{{ post.url | relative_url }}" aria-label="Read {{ post.title | escape }}"><span class="visual-orbit"></span><span class="visual-object">{% if forloop.index == 1 %}✺{% elsif forloop.index == 2 %}◉{% else %}✧{% endif %}</span><span class="visual-label">{{ post.categories | first | default: 'FIELD NOTE' | upcase }}</span><span class="visual-arrow">↗</span></a>
+        <div class="post-meta"><span>{{ post.date | date: "%d %b %Y" | upcase }}</span><span class="meta-dot">·</span><span>{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} MIN READ</span></div>
+        <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+        <p>{{ post.excerpt | strip_html | normalize_whitespace | truncate: 145 }}</p>
+        <a class="read-link" href="{{ post.url | relative_url }}">Read the story <span aria-hidden="true">→</span></a>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-journal"><span class="empty-star">✳</span><div><h3>A universe of stories starts here.</h3><p>New field notes and discoveries are on their way. Have something to share? <a href="{{ '/about/' | relative_url }}">Get in touch →</a></p></div></div>
+    {% endif %}
+  </section>
+
+  <section class="manifesto"><div class="manifesto-mark">✳</div><p class="eyebrow">A SMALL NOTE FROM THE BIG PICTURE</p><h2>Space is vast.<br><em>Wonder is what brings us closer.</em></h2><a class="button button-light" href="{{ '/about/' | relative_url }}">Meet the community <span aria-hidden="true">→</span></a><span class="manifesto-orbit"></span></section>
+
+  {% assign newsletter_ready = site.newsletter_action | default: '' | strip %}<section class="newsletter section-wrap" id="newsletter"><div class="newsletter-copy"><p class="eyebrow">A LITTLE COSMIC POST</p><h2>Good things<br>come in <em>waves.</em></h2><p>Fresh stories, sky events and discoveries — delivered occasionally, never astronomically often.</p></div><form class="newsletter-form" {% if newsletter_ready != '' %}action="{{ newsletter_ready | escape }}" method="post"{% endif %}>
+      <label for="newsletter-email">YOUR EMAIL ADDRESS</label><div class="email-row"><input id="newsletter-email" type="email" name="email" placeholder="you@somewhere.space" autocomplete="email" required><button type="submit" aria-label="Subscribe to the newsletter" {% if newsletter_ready == '' %}disabled title="Newsletter provider not configured yet"{% endif %}>Join us <span aria-hidden="true">↗</span></button></div>{% if newsletter_ready != '' %}<p class="form-note">No spam. Unsubscribe whenever your orbit takes you elsewhere.</p>{% else %}<p class="form-note">Newsletter collection is not connected yet. Add your provider endpoint as <code>newsletter_action</code> in <code>_config.yml</code>.</p>{% endif %}
+    </form></section>
+</main>
